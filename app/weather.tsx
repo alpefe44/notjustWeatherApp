@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import * as Location from 'expo-location';
 import ForecastItem from '../src/components/ForecastItem';
 import { Stack } from 'expo-router';
+import LottieView from 'lottie-react-native';
 
 
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
@@ -31,6 +32,14 @@ type MainWeather = {
 export type Weather = {
     name: String;
     main: MainWeather;
+    weather: [
+        {
+            id: string;
+            main: string;
+            description: string;
+            icon: string;
+        }
+    ];
 };
 
 
@@ -118,6 +127,20 @@ const WeatherScreen = () => {
 
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+                <LottieView
+                    source={
+                        weather.weather[0].main === 'Rain'
+                            ? require('@assets/lottie/rain.json')
+                            : require('@assets/lottie/sunny.json')
+                    }
+                    style={{
+                        width: 200,
+                        aspectRatio: 1,
+                    }}
+                    loop
+                    autoPlay
+                />
                 <Text style={styles.location}>{weather?.name}</Text>
                 <Text style={styles.temp}>{Math.round(weather?.main.temp)}°</Text>
             </View>
