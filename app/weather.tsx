@@ -6,6 +6,8 @@ import { Stack } from 'expo-router';
 import LottieView from 'lottie-react-native';
 
 
+
+
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 const OPEN_WEATHER_KEY = process.env.EXPO_PUBLIC_OPEN_WEATHER_KEY;
 
@@ -46,6 +48,14 @@ export type Weather = {
 export type WeatherForecast = {
     main: MainWeather;
     dt: number;
+    weather: [
+        {
+            id: string;
+            main: string;
+            description: string;
+            icon: string;
+        }
+    ]
 }
 
 const WeatherScreen = () => {
@@ -131,8 +141,8 @@ const WeatherScreen = () => {
                 <LottieView
                     source={
                         weather.weather[0].main === 'Rain'
-                            ? require('@assets/lottie/rain.json')
-                            : require('@assets/lottie/sunny.json')
+                            ? require('../assets/lottie/rain.json')
+                            : require('../assets/lottie/sunny.json')
                     }
                     style={{
                         width: 200,
